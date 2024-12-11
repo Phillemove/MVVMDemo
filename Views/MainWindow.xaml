@@ -21,17 +21,17 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <Button Content="Add" Width="100" Margin="0,30,100,3" HorizontalAlignment="Right" Command="{Binding AddUserToListCommand}" Style="{StaticResource AddBtn}" />
+            <Button Content="Delete" Width="100" Margin="0,0,100,3" HorizontalAlignment="Right" Command="{Binding RemoveUserFromListCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource DelBtn}"/>
+            <Button Content="Modify User" Width="100" Margin="0,0,100,0" HorizontalAlignment="Right" Command="{Binding OpenModifyUserCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource ModBtn}"/>
+        </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Label Content="New User"/>
             <Label Content="Name" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left"/>
             <TextBox Width="150" Margin="10,0,0,0" HorizontalAlignment="Left" x:Name="NameInput" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Content="Email" Margin="10,0,0,0" Width="150" HorizontalAlignment="Left"/>
             <TextBox Width="150" Margin="10,0,0,0" HorizontalAlignment="Left" x:Name="EmailInput" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <Button Content="Add" Width="100" Margin="0,30,100,3" HorizontalAlignment="Right" Command="{Binding AddUserToListCommand}" Style="{StaticResource AddBtn}" />
-            <Button Content="Delete" Width="100" Margin="0,0,100,3" HorizontalAlignment="Right" Command="{Binding RemoveUserFromListCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource DelBtn}"/>
-            <Button Content="Modify User" Width="100" Margin="0,0,100,0" HorizontalAlignment="Right" Command="{Binding OpenModifyUserCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource ModBtn}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
             <ListView x:Name="lvUsers" ItemsSource="{Binding Users.Users}">

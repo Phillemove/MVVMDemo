@@ -10,6 +10,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MVVMTest.ViewModel
@@ -47,15 +48,24 @@ namespace MVVMTest.ViewModel
             }
 
             var editUserViewModel = new EditUserViewModel(obj);
+            var mainWindow = Application.Current.MainWindow;
 
             var window = new Window
             {
                 Content = new EditUser
                 {
                     DataContext = editUserViewModel
-                }
+                },
+                Width = mainWindow.ActualWidth,
+                Height = mainWindow.ActualHeight,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = mainWindow,
+                WindowStyle = WindowStyle.None,
+                ResizeMode = ResizeMode.NoResize
+
             };
-            window.Show();
+            window.ShowDialog();
+
         }
 
         [RelayCommand]

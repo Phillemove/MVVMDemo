@@ -30,5 +30,15 @@
             </Style>
         </Style.Resources>
     </Style>
+    <Style TargetType="{x:Type Button}" x:Key="BackBtn">
+        <Setter Property="Background" Value="LightYellow" />
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="3,3,3,3" />
+            </Style>
+        </Style.Resources>
+    </Style>
 
 </ResourceDictionary>

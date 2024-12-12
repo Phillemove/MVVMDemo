@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MVVMTest.Views"
         xmlns:localVM="clr-namespace:MVVMTest.ViewModel"
         mc:Ignorable="d"
+        Style="{StaticResource WindowBackground}"
         Title="MainWindow" Height="450" Width="800">
 
     <Window.DataContext>
@@ -13,27 +14,36 @@
     </Window.DataContext>
 
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <Button Content="Add" Width="100" Margin="0,30,100,3" HorizontalAlignment="Right" Command="{Binding AddUserToListCommand}" Style="{StaticResource AddBtn}" />
-            <Button Content="Delete" Width="100" Margin="0,0,100,3" HorizontalAlignment="Right" Command="{Binding RemoveUserFromListCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource DelBtn}"/>
-            <Button Content="Modify User" Width="100" Margin="0,0,100,0" HorizontalAlignment="Right" Command="{Binding OpenModifyUserCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource ModBtn}"/>
+
+        <StackPanel Grid.Row="0">
+            <Label Content="User Management"/>
+            <Separator />
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <Label Content="New User"/>
-            <Label Content="Name" Width="100" Margin="10,0,0,0" HorizontalAlignment="Left"/>
-            <TextBox Width="150" Margin="10,0,0,0" HorizontalAlignment="Left" x:Name="NameInput" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-            <Label Content="Email" Margin="10,0,0,0" Width="150" HorizontalAlignment="Left"/>
-            <TextBox Width="150" Margin="10,0,0,0" HorizontalAlignment="Left" x:Name="EmailInput" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Add User" Height="30" Width="100" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding OpenAddUserCommand}" Style="{StaticResource BtnStyle}" >
+                <Button.ToolTip>
+                    <TextBlock Text="Click to add a new user"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Content="Delete User" Height="30" Width="100" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding RemoveUserFromListCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource BtnStyle}">
+                <Button.ToolTip>
+                    <TextBlock Text="Select one user from list below an click on this button to delete the selected user"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Content="Modify User" Height="30" Width="100" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding OpenModifyUserCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource BtnStyle}">
+                <Button.ToolTip>
+                    <TextBlock Text="Select one user from list below and click on this button to modify the selected user"/>
+                </Button.ToolTip>
+            </Button>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="1">
+            <Separator />
+            <Label Content="List of Users"/>
             <ListView x:Name="lvUsers" ItemsSource="{Binding Users.Users}">
                 <ListView.View>
                     <GridView>
@@ -43,5 +53,6 @@
                 </ListView.View>
             </ListView>
         </StackPanel>
+        
     </Grid>
 </Window>

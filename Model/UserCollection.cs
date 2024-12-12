@@ -10,22 +10,49 @@ namespace MVVMTest.Model
 {
     public partial class UserCollection : ObservableObject
     {
+        private static UserCollection? instance = null;
+
         [ObservableProperty]
         private ObservableCollection<User> users;
 
-        public UserCollection()
+        private int idCount;
+
+        public static UserCollection Instance
         {
-            Users = [new() { Name = "Phil", Email = "test@test.de" }];
+            get
+            {
+                instance ??= new UserCollection();
+                return instance;
+            }
+        }
+
+        private UserCollection()
+        {
+            idCount = 0;
+            Users = [new() { Id = idCount, Name = "Phil", Email = "test@test.de" }];
         }
 
         public void Add(User user)
         {
+            idCount++;
+            user.Id = idCount;
             Users.Add(user);
         }
 
         public void Remove(User user)
         {
             Users.Remove(user);
+        }
+
+        public void Modify(User user)
+        {
+            User? existingUser = Users.FirstOrDefault(item => item.Id == user.Id);
+
+            if (existingUser != null)
+            {
+                existingUser.Name = user.Name;
+                existingUser.Email = user.Email;
+            }
         }
     }
 }

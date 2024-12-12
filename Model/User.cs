@@ -15,8 +15,17 @@ namespace MVVMTest.Model
         [ObservableProperty]
         private string email;
 
+        private int id;
+
+        public int Id
+        {
+            get => id;
+            set => id = value;
+        }
+
         public User()
         {
+            Id = -1;
             Name = string.Empty;
             Email = string.Empty;
         }

@@ -40,5 +40,15 @@
             </Style>
         </Style.Resources>
     </Style>
+    <Style TargetType="{x:Type Button}" x:Key="SaveBtn">
+        <Setter Property="Background" Value="RosyBrown" />
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="3,3,3,3" />
+            </Style>
+        </Style.Resources>
+    </Style>
 
 </ResourceDictionary>

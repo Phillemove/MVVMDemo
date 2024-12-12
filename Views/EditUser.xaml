@@ -11,7 +11,7 @@
       Title="EditUser">
     
     <Page.DataContext>
-        <localVM:EditUserViewModel/>
+        <Binding Source="{StaticResource ViewModelLocator}" Path="EditUserViewModel" />
     </Page.DataContext>
     
     <Grid>

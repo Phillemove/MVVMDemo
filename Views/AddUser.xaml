@@ -11,7 +11,7 @@
       Title="AddUser">
 
     <Page.DataContext>
-        <localVM:AddUserViewModel />
+        <Binding Source="{StaticResource ViewModelLocator}" Path="AddUserViewModel" />
     </Page.DataContext>
 
     <Grid>

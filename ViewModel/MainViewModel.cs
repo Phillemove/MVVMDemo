@@ -35,7 +35,7 @@ namespace MVVMTest.ViewModel
             Name = string.Empty;
             Email = string.Empty;
             User = new User();
-            Users = new UserCollection();
+            Users = UserCollection.Instance;
         }
 
         [RelayCommand]
@@ -61,7 +61,8 @@ namespace MVVMTest.ViewModel
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = mainWindow,
                 WindowStyle = WindowStyle.None,
-                ResizeMode = ResizeMode.NoResize
+                ResizeMode = ResizeMode.NoResize,
+                ShowInTaskbar = false
 
             };
             window.ShowDialog();

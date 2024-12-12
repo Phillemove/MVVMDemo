@@ -17,13 +17,6 @@ namespace MVVMTest.ViewModel
 {
     public partial class MainViewModel : ObservableRecipient
     {
-
-        [ObservableProperty]
-        private string name;
-
-        [ObservableProperty]
-        private string email;
-
         [ObservableProperty]
         private UserCollection users;
 
@@ -32,8 +25,6 @@ namespace MVVMTest.ViewModel
 
         public MainViewModel()
         {
-            Name = string.Empty;
-            Email = string.Empty;
             User = new User();
             Users = UserCollection.Instance;
         }
@@ -84,20 +75,23 @@ namespace MVVMTest.ViewModel
         }
 
         [RelayCommand]
-        private void AddUserToList()
+        private static void OpenAddUser()
         {
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email))
+            var mainWindow = Application.Current.MainWindow;
+
+            var window = new Window
             {
-                MessageBox.Show("Please insert Data");
-                return;
-            }
+                Content = new AddUser(),
+                Width = mainWindow.ActualWidth,
+                Height = mainWindow.ActualHeight,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = mainWindow,
+                WindowStyle = WindowStyle.None,
+                ResizeMode = ResizeMode.NoResize,
+                ShowInTaskbar = false
 
-            User.Name = Name;
-            User.Email = Email;
-            Users.Add(User);
-
-            Name = string.Empty;
-            Email = string.Empty;
+            };
+            window.ShowDialog();
         }
     }
 }

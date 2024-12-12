@@ -48,7 +48,7 @@ namespace MVVMTest.ViewModel
             Name = string.Empty;
             Email = string.Empty;
 
-            MessageBoxResult result = MessageBox.Show("User successfull created", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBoxResult result = MessageBox.Show("User successfull created", "Add", MessageBoxButton.OK, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.OK)
             {

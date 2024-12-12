@@ -71,6 +71,8 @@ namespace MVVMTest.ViewModel
                 {
                     Users.Remove(item);
                 }
+
+                MessageBox.Show("User successfull removed", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

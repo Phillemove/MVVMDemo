@@ -44,7 +44,12 @@ namespace MVVMTest.ViewModel
         private void Save()
         {
             UserCollection.Modify(User);
-            CloseCommand.Execute(this);
+            MessageBoxResult result = MessageBox.Show("User successfull updated", "Modify", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.OK)
+            {
+                CloseCommand.Execute(this);
+            }
         }
 
         [RelayCommand]

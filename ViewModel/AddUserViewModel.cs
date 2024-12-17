@@ -10,6 +10,11 @@ using System.Windows;
 
 namespace MVVMTest.ViewModel
 {
+    /**
+     View Model for the Add User View.
+     Uses some Properties to bind them to the view and some Properties to get the Data from the model.
+     There are also some Relay Commands for user interaction from the view.
+     */
     public partial class AddUserViewModel : ObservableRecipient
     {
         [ObservableProperty]

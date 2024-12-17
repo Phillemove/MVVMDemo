@@ -11,6 +11,13 @@ using System.Windows;
 
 namespace MVVMTest.ViewModel
 {
+    /**
+     View Model for the Edit User View.
+     This View Model has two constructors. One without parameters and one with parameters.
+     The constructor with parameters is used to pass a data selection from the view to this view model.
+     Uses Properties to get the Data from the model.
+     There are also some Relay Commands for user interaction from the view.
+     */
     public partial class EditUserViewModel : ObservableRecipient
     {
         [ObservableProperty]

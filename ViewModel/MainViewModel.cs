@@ -15,6 +15,11 @@ using System.Windows.Input;
 
 namespace MVVMTest.ViewModel
 {
+    /**
+     View Model of the Main Window.
+     It has some properties which are bind to the view and a wrapper property for the model.
+     It has a relay command for the login mechanism.
+     */
     public partial class MainViewModel : ObservableRecipient
     {
         [ObservableProperty]

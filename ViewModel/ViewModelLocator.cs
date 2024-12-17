@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace MVVMTest.ViewModel
 {
+    /**
+     View Model Locator class.
+     It is bind to the view as a static resource to provide the corresponding view model to it's view.
+     */
     public class ViewModelLocator
     {
         public static MainViewModel MainViewModel => new();

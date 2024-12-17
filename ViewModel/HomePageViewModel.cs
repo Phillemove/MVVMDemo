@@ -12,6 +12,10 @@ using System.Windows;
 
 namespace MVVMTest.ViewModel
 {
+    /**
+     View Model for the view after login (Home Page).
+     It has some Wrapper properties to interact with the model and some Relay commands for the unser interaction from the view.
+     */
     public partial class HomePageViewModel : ObservableRecipient
     {
         [ObservableProperty]

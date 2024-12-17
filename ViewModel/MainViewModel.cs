@@ -18,82 +18,66 @@ namespace MVVMTest.ViewModel
     public partial class MainViewModel : ObservableRecipient
     {
         [ObservableProperty]
-        private UserCollection users;
+        private AuthUser authUser;
 
         [ObservableProperty]
-        private User user;
+        private string name;
+
+        [ObservableProperty]
+        private string password;
+
+
 
         public MainViewModel()
         {
-            User = new User();
-            Users = UserCollection.Instance;
+            Name = string.Empty;
+            Password = string.Empty;
+            AuthUser = new AuthUser();
         }
 
         [RelayCommand]
-        private static void OpenModifyUser(IList? obj)
+        private void Login(object parameter)
         {
-            if (obj != null && obj.Count > 1)
+
+            var passwordbox = parameter as PasswordBox;
+
+            Password = passwordbox!.Password;
+
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Password))
             {
-                MessageBox.Show("Select only one Item");
+                MessageBox.Show("Please insert a Username and a Password");
                 return;
             }
 
-            var editUserViewModel = new EditUserViewModel(obj);
-            var mainWindow = Application.Current.MainWindow;
-
-            var window = new Window
+            if (Name == AuthUser.Username && Password == AuthUser.Password)
             {
-                Content = new EditUser
+                var mainWindow = Application.Current.MainWindow;
+
+                var window = new Window
                 {
-                    DataContext = editUserViewModel
-                },
-                Width = mainWindow.ActualWidth,
-                Height = mainWindow.ActualHeight,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Owner = mainWindow,
-                WindowStyle = WindowStyle.None,
-                ResizeMode = ResizeMode.NoResize,
-                ShowInTaskbar = false
+                    Content = new HomePage(),
+                    Width = mainWindow.ActualWidth,
+                    Height = mainWindow.ActualHeight,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = mainWindow,
+                    WindowStyle = WindowStyle.None,
+                    ResizeMode = ResizeMode.NoResize,
+                    ShowInTaskbar = false
 
-            };
-            window.ShowDialog();
+                };
+                window.ShowDialog();
 
-        }
-
-        [RelayCommand]
-        private void RemoveUserFromList(IList? obj)
-        {
-            if (obj != null)
+                Name = string.Empty;
+                Password = string.Empty;
+            }
+            else
             {
-                var copyOfSelectedItems = ((IList<object>)obj).ToList();
-
-                foreach (User item in copyOfSelectedItems.Cast<User>())
-                {
-                    Users.Remove(item);
-                }
-
-                MessageBox.Show("User successfull removed", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("The Username or Password is not correct");
+                Name = string.Empty;
+                Password = string.Empty;
+                return;
             }
         }
 
-        [RelayCommand]
-        private static void OpenAddUser()
-        {
-            var mainWindow = Application.Current.MainWindow;
-
-            var window = new Window
-            {
-                Content = new AddUser(),
-                Width = mainWindow.ActualWidth,
-                Height = mainWindow.ActualHeight,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Owner = mainWindow,
-                WindowStyle = WindowStyle.None,
-                ResizeMode = ResizeMode.NoResize,
-                ShowInTaskbar = false
-
-            };
-            window.ShowDialog();
-        }
     }
 }

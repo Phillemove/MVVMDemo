@@ -43,12 +43,19 @@ namespace MVVMTest.ViewModel
         [RelayCommand]
         private void Save()
         {
-            UserCollection.Modify(User);
-            MessageBoxResult result = MessageBox.Show("User successfull updated", "Modify", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            if (result == MessageBoxResult.OK)
+            bool modresult = UserCollection.Modify(User);
+            if (modresult)
             {
-                CloseCommand.Execute(this);
+                MessageBoxResult result = MessageBox.Show("User successfull updated", "Modify", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.OK)
+                {
+                    CloseCommand.Execute(this);
+                }
+            }
+            else
+            {
+                MessageBox.Show("An error occured on updating the user", "Modify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

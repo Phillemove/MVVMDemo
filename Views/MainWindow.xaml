@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Style="{StaticResource WindowBackground}"
         Title="MainWindow" Height="450" Width="800">
-
+    <!-- Main Window -->
     <Window.DataContext>
         <Binding Source="{StaticResource ViewModelLocator}" Path="MainViewModel"/>
     </Window.DataContext>

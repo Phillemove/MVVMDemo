@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Style="{StaticResource PageStyle}"
       Title="AddUser">
-
+    <!-- Add User View -->
     <Page.DataContext>
         <Binding Source="{StaticResource ViewModelLocator}" Path="AddUserViewModel" />
     </Page.DataContext>

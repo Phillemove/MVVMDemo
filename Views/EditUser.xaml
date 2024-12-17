@@ -9,7 +9,7 @@
       Style="{StaticResource PageStyle}"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditUser">
-    
+    <!-- Edit User View -->
     <Page.DataContext>
         <Binding Source="{StaticResource ViewModelLocator}" Path="EditUserViewModel" />
     </Page.DataContext>

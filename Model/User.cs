@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MVVMTest.Model
 {
+    /**
+     Simple Data class for a User with observable Properties
+     */
     public partial class User : ObservableObject
     {
         [ObservableProperty]

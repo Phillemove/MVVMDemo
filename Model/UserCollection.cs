@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace MVVMTest.Model
 {
+    /**
+     Simple Data Collection with observable Properties.
+     The class is designed as a simple singleton to ensure that only one instance will be created at runtime.
+     The collection provides some business logic to interact with the collection.
+     */
     public partial class UserCollection : ObservableObject
     {
         private static UserCollection? instance = null;
@@ -44,7 +49,7 @@ namespace MVVMTest.Model
             Users.Remove(user);
         }
 
-        public void Modify(User user)
+        public bool Modify(User user)
         {
             User? existingUser = Users.FirstOrDefault(item => item.Id == user.Id);
 
@@ -52,7 +57,10 @@ namespace MVVMTest.Model
             {
                 existingUser.Name = user.Name;
                 existingUser.Email = user.Email;
+                return true;
             }
+
+            return false;
         }
     }
 }

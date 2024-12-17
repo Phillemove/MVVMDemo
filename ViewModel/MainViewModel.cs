@@ -22,8 +22,7 @@ namespace MVVMTest.ViewModel
      */
     public partial class MainViewModel : ObservableRecipient
     {
-        [ObservableProperty]
-        private AuthUser authUser;
+        private readonly AuthUser authUser;
 
         [ObservableProperty]
         private string name;
@@ -31,57 +30,58 @@ namespace MVVMTest.ViewModel
         [ObservableProperty]
         private string password;
 
-
-
         public MainViewModel()
         {
-            Name = string.Empty;
-            Password = string.Empty;
-            AuthUser = new AuthUser();
+            Name = Password = string.Empty;
+            authUser = new();
         }
 
         [RelayCommand]
         private void Login(object parameter)
         {
 
-            var passwordbox = parameter as PasswordBox;
+            if (parameter is not PasswordBox passwordBox)
+            {
+                MessageBox.Show("Invalid login input.");
+                return;
+            }
 
-            Password = passwordbox!.Password;
+            Password = passwordBox.Password;
 
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Password))
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Password))
             {
                 MessageBox.Show("Please insert a Username and a Password");
                 return;
             }
 
-            if (Name == AuthUser.Username && Password == AuthUser.Password)
+            if (Name == authUser.Username && Password == authUser.Password)
             {
-                var mainWindow = Application.Current.MainWindow;
-
-                var window = new Window
-                {
-                    Content = new HomePage(),
-                    Width = mainWindow.ActualWidth,
-                    Height = mainWindow.ActualHeight,
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                    Owner = mainWindow,
-                    WindowStyle = WindowStyle.None,
-                    ResizeMode = ResizeMode.NoResize,
-                    ShowInTaskbar = false
-
-                };
-                window.ShowDialog();
-
-                Name = string.Empty;
-                Password = string.Empty;
+                ShowHomePage();
             }
             else
             {
                 MessageBox.Show("The Username or Password is not correct");
-                Name = string.Empty;
-                Password = string.Empty;
-                return;
             }
+
+            Name = Password = string.Empty;
+        }
+
+        private static void ShowHomePage()
+        {
+            var mainWindow = Application.Current.MainWindow;
+
+            var window = new Window
+            {
+                Content = new HomePage(),
+                Width = mainWindow.ActualWidth,
+                Height = mainWindow.ActualHeight,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = mainWindow,
+                WindowStyle = WindowStyle.None,
+                ResizeMode = ResizeMode.NoResize,
+                ShowInTaskbar = false
+            };
+            window.ShowDialog();
         }
 
     }

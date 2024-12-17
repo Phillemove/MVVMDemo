@@ -21,32 +21,28 @@ namespace MVVMTest.ViewModel
         [ObservableProperty]
         private UserCollection users;
 
-        [ObservableProperty]
-        private User user;
-
         public HomePageViewModel()
         {
-            User = new User();
             Users = UserCollection.Instance;
         }
 
         [RelayCommand]
         private static void OpenModifyUser(IList? obj)
         {
-            if (obj != null && obj.Count > 1)
+            if (obj is not { Count: 1 })
             {
-                MessageBox.Show("Select only one Item");
-                return;
-            }
+                string message = obj == null || obj.Count == 0
+                    ? "Please select one user from the list"
+                    : "Select only one Item";
 
-            if (obj != null && obj.Count == 0)
-            {
-                MessageBox.Show("Please select one user from the list", "Modify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(message, "Modify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             var editUserViewModel = new EditUserViewModel(obj);
             var homeWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
+
+            if (homeWindow == null) return;
 
             var window = new Window
             {
@@ -54,7 +50,7 @@ namespace MVVMTest.ViewModel
                 {
                     DataContext = editUserViewModel
                 },
-                Width = homeWindow!.ActualWidth,
+                Width = homeWindow.ActualWidth,
                 Height = homeWindow.ActualHeight,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = homeWindow,
@@ -70,23 +66,18 @@ namespace MVVMTest.ViewModel
         [RelayCommand]
         private void RemoveUserFromList(IList? obj)
         {
-            if (obj != null)
+            if (obj is not { Count: > 0 })
             {
-                if (obj.Count == 0)
-                {
-                    MessageBox.Show("Please select one or more user from the list", "Delete", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                var copyOfSelectedItems = ((IList<object>)obj).ToList();
-
-                foreach (User item in copyOfSelectedItems.Cast<User>())
-                {
-                    Users.Remove(item);
-                }
-
-                MessageBox.Show("User successfull removed", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Please select one or more user from the list", "Delete", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
+
+            foreach (var user in obj.Cast<User>().ToList())
+            {
+                Users.Remove(user);
+            }
+
+            MessageBox.Show("User successfully removed", "Delete", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         [RelayCommand]
@@ -94,10 +85,12 @@ namespace MVVMTest.ViewModel
         {
             var homeWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
 
+            if (homeWindow == null) return;
+
             var window = new Window
             {
                 Content = new AddUser(),
-                Width = homeWindow!.ActualWidth,
+                Width = homeWindow.ActualWidth,
                 Height = homeWindow.ActualHeight,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = homeWindow,
@@ -112,8 +105,7 @@ namespace MVVMTest.ViewModel
         [RelayCommand]
         private static void Logout()
         {
-            var currentWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
-            currentWindow?.Close();
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)?.Close();
         }
     }
 }

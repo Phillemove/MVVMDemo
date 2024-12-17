@@ -26,36 +26,26 @@ namespace MVVMTest.ViewModel
         [ObservableProperty]
         private UserCollection users;
 
-        [ObservableProperty]
-        private User user;
-
         public AddUserViewModel()
         {
-            Name = string.Empty;
-            Email = string.Empty;
-            User = new User();
+            Name = Email = string.Empty;
             Users = UserCollection.Instance;
         }
 
         [RelayCommand]
         private void AddUserToList()
         {
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Email))
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Email))
             {
-                MessageBox.Show("Please insert Data");
+                MessageBox.Show("Please insert valid Data", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            User.Name = Name;
-            User.Email = Email;
-            Users.Add(User);
+            Users.Add(new User { Name = Name, Email = Email });
 
-            Name = string.Empty;
-            Email = string.Empty;
+            Name = Email = string.Empty;
 
-            MessageBoxResult result = MessageBox.Show("User successfull created", "Add", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            if (result == MessageBoxResult.OK)
+            if (MessageBox.Show("User successfull created", "Add", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
             {
                 CloseCommand.Execute(this);
             }
@@ -64,8 +54,7 @@ namespace MVVMTest.ViewModel
         [RelayCommand]
         private static void Close()
         {
-            var currentWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
-            currentWindow?.Close();
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)?.Close();
         }
     }
 }

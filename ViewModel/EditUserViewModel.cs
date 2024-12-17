@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace MVVMTest.ViewModel
 {
@@ -34,43 +35,40 @@ namespace MVVMTest.ViewModel
 
         public EditUserViewModel(IList? obj)
         {
-            User = new();
+            User = obj?.OfType<User>().FirstOrDefault() ?? new();
             UserCollection = UserCollection.Instance;
-
-            User? firstUser = obj?.OfType<User>().FirstOrDefault();
-
-            if (firstUser != null)
-            {
-                User.Id = firstUser.Id;
-                User.Name = firstUser.Name;
-                User.Email = firstUser.Email;
-            }
         }
 
         [RelayCommand]
         private void Save()
         {
-            bool modresult = UserCollection.Modify(User);
-            if (modresult)
-            {
-                MessageBoxResult result = MessageBox.Show("User successfull updated", "Modify", MessageBoxButton.OK, MessageBoxImage.Information);
+            string message;
+            string title;
+            MessageBoxImage icon;
 
-                if (result == MessageBoxResult.OK)
-                {
-                    CloseCommand.Execute(this);
-                }
+            if (UserCollection.Modify(User))
+            {
+                message = "User successfully updated";
+                title = "Modify";
+                icon = MessageBoxImage.Information;
             }
             else
             {
-                MessageBox.Show("An error occured on updating the user", "Modify", MessageBoxButton.OK, MessageBoxImage.Error);
+                message = "An error occurred while updating the user";
+                title = "Modify";
+                icon = MessageBoxImage.Error;
+            }
+
+            if (MessageBox.Show(message, title, MessageBoxButton.OK, icon) == MessageBoxResult.OK && icon == MessageBoxImage.Information)
+            {
+                CloseCommand.Execute(this);
             }
         }
 
         [RelayCommand]
         private static void Close()
         {
-            var currentWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive);
-            currentWindow?.Close();
+            Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w.IsActive)?.Close();
         }
     }
 }

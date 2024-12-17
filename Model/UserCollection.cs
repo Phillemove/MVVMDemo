@@ -53,14 +53,14 @@ namespace MVVMTest.Model
         {
             User? existingUser = Users.FirstOrDefault(item => item.Id == user.Id);
 
-            if (existingUser != null)
+            if (existingUser == null)
             {
-                existingUser.Name = user.Name;
-                existingUser.Email = user.Email;
-                return true;
+                return false;
             }
 
-            return false;
+            existingUser.Name = user.Name;
+            existingUser.Email = user.Email;
+            return true;
         }
     }
 }

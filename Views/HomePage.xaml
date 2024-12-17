@@ -1,0 +1,62 @@
+﻿<Page x:Class="MVVMTest.Views.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MVVMTest.Views"
+      xmlns:localVM="clr-namespace:MVVMTest.ViewModel"
+      mc:Ignorable="d" 
+      Style="{StaticResource PageStyle}"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="HomePage">
+
+    <Page.DataContext>
+        <Binding Source="{StaticResource ViewModelLocator}" Path="HomePageViewModel" />
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Label Content="User Management"/>
+            <Separator />
+        </StackPanel>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Add User" Height="30" Width="100" Margin="10,0,10,0" HorizontalAlignment="Right" Command="{Binding OpenAddUserCommand}" Style="{StaticResource BtnStyle}" >
+                <Button.ToolTip>
+                    <TextBlock Text="Click to add a new user"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Content="Delete User" Height="30" Width="100" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding RemoveUserFromListCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource BtnStyle}">
+                <Button.ToolTip>
+                    <TextBlock Text="Select one user from list below an click on this button to delete the selected user"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Content="Modify User" Height="30" Width="100" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding OpenModifyUserCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource BtnStyle}">
+                <Button.ToolTip>
+                    <TextBlock Text="Select one user from list below and click on this button to modify the selected user"/>
+                </Button.ToolTip>
+            </Button>
+            <Button Content="Logout" Height="30" Width="100" Margin="350,0,10,0" HorizontalAlignment="Right" Command="{Binding LogoutCommand}" Style="{StaticResource BtnStyle}" >
+                <Button.ToolTip>
+                    <TextBlock Text="Click to logout"/>
+                </Button.ToolTip>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <Separator />
+            <Label Content="List of Users"/>
+            <ListView x:Name="lvUsers" ItemsSource="{Binding Users.Users}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="100"/>
+                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="200"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
+    </Grid>
+</Page>

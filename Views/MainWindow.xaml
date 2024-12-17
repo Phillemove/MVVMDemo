@@ -16,43 +16,21 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
-            <RowDefinition/>
+            <RowDefinition Height="130" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
+        <StackPanel>
             <Label Content="User Management"/>
             <Separator />
+            <Label Content="Username" Margin="5,0,0,0" />
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+            <Label Content="Password" Margin="5,0,0,0" />
+            <PasswordBox Name="txtPassword" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0"/>
         </StackPanel>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Add User" Height="30" Width="100" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding OpenAddUserCommand}" Style="{StaticResource BtnStyle}" >
-                <Button.ToolTip>
-                    <TextBlock Text="Click to add a new user"/>
-                </Button.ToolTip>
-            </Button>
-            <Button Content="Delete User" Height="30" Width="100" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding RemoveUserFromListCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource BtnStyle}">
-                <Button.ToolTip>
-                    <TextBlock Text="Select one user from list below an click on this button to delete the selected user"/>
-                </Button.ToolTip>
-            </Button>
-            <Button Content="Modify User" Height="30" Width="100" Margin="0,0,10,0" HorizontalAlignment="Right" Command="{Binding OpenModifyUserCommand}" CommandParameter="{Binding SelectedItems, ElementName=lvUsers}" Style="{StaticResource BtnStyle}">
-                <Button.ToolTip>
-                    <TextBlock Text="Select one user from list below and click on this button to modify the selected user"/>
-                </Button.ToolTip>
-            </Button>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+            <Button Content="Login" Height="30" Width="100" HorizontalAlignment="Left" Margin="10,0,10,0" Style="{StaticResource BtnStyle}" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" />
         </StackPanel>
-        <StackPanel Grid.Row="1">
-            <Separator />
-            <Label Content="List of Users"/>
-            <ListView x:Name="lvUsers" ItemsSource="{Binding Users.Users}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
-        
+
     </Grid>
 </Window>

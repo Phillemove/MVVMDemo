@@ -7,7 +7,7 @@
       xmlns:localVM="clr-namespace:MVVMTest.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Style="{StaticResource PageBackground}"
+      Style="{StaticResource PageStyle}"
       Title="AddUser">
 
     <Page.DataContext>
@@ -21,15 +21,15 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <Label Content="Add User"/>
+            <Label Content="Add User" />
             <Separator />
-            <Label Content="Name" />
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="150" HorizontalAlignment="Left" Margin="0,0,0,0"/>
-            <Label Content="Email" />
-            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Width="150" HorizontalAlignment="Left"/>
+            <Label Content="Name" Margin="5,0,0,0" />
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+            <Label Content="Email" Margin="5,0,0,0" />
+            <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Width="150" HorizontalAlignment="Left" Margin="10,0,0,0"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
-            <Button Content="Save" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,0,10,0" Style="{StaticResource BtnStyle}" Command="{Binding AddUserToListCommand}" />
+            <Button Content="Save" Height="30" Width="100" HorizontalAlignment="Left" Margin="10,0,10,0" Style="{StaticResource BtnStyle}" Command="{Binding AddUserToListCommand}" />
             <Button Content="Back" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,0,0,0" Style="{StaticResource BtnStyle}" Command="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
